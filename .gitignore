@@ -1,0 +1,27 @@
+# Node
+node_modules
+dist
+coverage
+
+# Environment
+.env
+.env.local
+
+# Flutter
+.dart_tool
+.flutter-plugins
+.flutter-plugins-dependencies
+build
+
+# Firebase
+.firebase
+
+# IDE
+.vscode
+.idea
+
+# Logs
+*.log
+
+# OS
+.DS_Store
