@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MessageCircle } from "lucide-react";
 import Logo from "../ui/Logo";
-import DarkModeToggle from "../ui/DarkModeToggle";
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -39,13 +38,13 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "py-3 bg-[#0D233A]/90 backdrop-blur-xl shadow-lg border-b border-white/5"
+            ? "py-3 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
             : "py-5 bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between">
           {/* Logo */}
-          <Logo dark size={34} />
+          <Logo size={34} />
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-8">
@@ -53,7 +52,9 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300"
+                className={`text-sm font-semibold transition-colors duration-300 ${
+                  scrolled ? "text-gray-600 hover:text-[#004D40]" : "text-gray-700 hover:text-[#004D40]"
+                }`}
               >
                 {link.label}
               </a>
@@ -61,13 +62,12 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            <DarkModeToggle />
+          <div className="hidden md:flex items-center gap-4">
             <a
               href="https://wa.me/2349000000000"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-light text-white font-semibold text-sm rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#004D40] hover:bg-[#00B074] text-white font-bold text-sm rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
             >
               <MessageCircle size={16} />
               Start on WhatsApp
@@ -76,10 +76,11 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
-            <DarkModeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="w-10 h-10 flex items-center justify-center text-white"
+              className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors ${
+                scrolled ? "text-gray-800 hover:bg-gray-100" : "text-gray-800 hover:bg-white/50"
+              }`}
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -95,7 +96,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-[#0D233A]/98 backdrop-blur-xl flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-white/98 backdrop-blur-xl flex flex-col items-center justify-center"
           >
             <div className="flex flex-col items-center gap-8">
               {navLinks.map((link, i) => (
@@ -106,7 +107,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="text-2xl font-bold text-white hover:text-primary transition-colors"
+                  className="text-2xl font-bold text-gray-900 hover:text-[#00B074] transition-colors"
                 >
                   {link.label}
                 </motion.a>
@@ -118,7 +119,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="mt-4 inline-flex items-center gap-2 px-8 py-4 bg-primary hover:bg-primary-light text-white font-bold text-lg rounded-full transition-all"
+                className="mt-4 inline-flex items-center gap-2 px-8 py-4 bg-[#004D40] hover:bg-[#00B074] text-white font-bold text-lg rounded-full shadow-lg transition-all"
               >
                 <MessageCircle size={20} />
                 Start on WhatsApp

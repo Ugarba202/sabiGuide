@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, UserCheck, GraduationCap, FileText, Award, Briefcase, ChevronRight, Wallet } from "lucide-react";
+import { BookOpen, UserCheck, GraduationCap, FileText, Award, Briefcase, Wallet } from "lucide-react";
 
 const gates = [
   {
@@ -65,26 +65,23 @@ const gates = [
 
 export default function The6GateJourney() {
   return (
-    <section className="py-24 bg-bg-main relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-b from-primary/5 to-transparent rounded-bl-full pointer-events-none" />
-      
+    <section className="py-24 bg-white relative overflow-hidden border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 mb-6"
           >
-            <span className="text-primary text-sm font-bold tracking-wide uppercase">The 6-Gate Journey</span>
+            <span className="text-blue-600 text-sm font-bold tracking-wide uppercase">The 6-Gate Journey</span>
           </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl md:text-5xl font-extrabold text-text-primary mb-6 tracking-tight"
+            className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight"
           >
             A Multi-Year Academic Compass
           </motion.h2>
@@ -93,7 +90,7 @@ export default function The6GateJourney() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-text-muted"
+            className="text-lg text-slate-600"
           >
             SabiGuide maintains strict state awareness for every user, navigating them through the six critical gates of their education while seamlessly embedding high-volume financial onboarding.
           </motion.p>
@@ -107,32 +104,29 @@ export default function The6GateJourney() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="bg-bg-card rounded-3xl p-8 border border-border-light dark:border-white/5 shadow-md hover:shadow-xl transition-all group relative overflow-hidden flex flex-col h-full"
+              className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all group flex flex-col h-full"
             >
-              {/* Card Hover Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <div className="flex items-center justify-between mb-6 relative z-10">
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${gate.color} flex items-center justify-center shadow-lg`}>
+              <div className="flex items-center justify-between mb-6">
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${gate.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
                   {gate.icon}
                 </div>
-                <div className="text-4xl font-black text-text-muted/20 select-none">
+                <div className="text-4xl font-black text-slate-100 select-none transition-colors group-hover:text-blue-50">
                   {gate.id}
                 </div>
               </div>
               
-              <h3 className="text-xl font-bold text-text-primary mb-4 relative z-10">{gate.title}</h3>
-              <p className="text-text-secondary leading-relaxed mb-6 flex-grow relative z-10">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{gate.title}</h3>
+              <p className="text-slate-600 leading-relaxed mb-6 flex-grow">
                 {gate.description}
               </p>
 
               {gate.integration && (
-                <div className="mt-auto pt-5 border-t border-border-light relative z-10">
+                <div className="mt-auto pt-5 border-t border-slate-100">
                   <div className="flex items-center gap-2 mb-2">
-                    <Wallet size={16} className="text-primary" />
-                    <span className="text-xs font-bold text-primary uppercase tracking-wider">{gate.integration.type}</span>
+                    <Wallet size={16} className="text-green-600" />
+                    <span className="text-xs font-bold text-green-600 uppercase tracking-wider">{gate.integration.type}</span>
                   </div>
-                  <p className="text-sm text-text-primary font-medium">{gate.integration.desc}</p>
+                  <p className="text-sm text-slate-700 font-medium">{gate.integration.desc}</p>
                 </div>
               )}
             </motion.div>

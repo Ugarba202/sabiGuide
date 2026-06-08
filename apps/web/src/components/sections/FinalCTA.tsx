@@ -2,89 +2,76 @@
 
 import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function FinalCTA() {
   return (
-    <section className="py-20 md:py-32 section-padding relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-section-cta" />
-
-      {/* Decorative Elements */}
-      <div
-        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-10"
-        style={{
-          background: "radial-gradient(circle, rgba(255,184,0,0.4) 0%, transparent 70%)",
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-10"
-        style={{
-          background: "radial-gradient(circle, rgba(0,176,116,0.4) 0%, transparent 70%)",
-        }}
-      />
-
-      {/* Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px",
-        }}
-      />
-
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+    <section className="py-24 bg-white overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="relative w-full rounded-3xl overflow-hidden bg-gradient-to-r from-[#0C3D2B] to-[#004D40] shadow-xl flex flex-col md:flex-row min-h-[350px] md:min-h-[400px]"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
-            Your Future Shouldn&apos;t Depend on{" "}
-            <span className="gradient-text-warm">Guesswork.</span>
-          </h2>
+          {/* Subtle Background Pattern */}
+          <div 
+            className="absolute inset-0 opacity-[0.05] pointer-events-none"
+            style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+              backgroundSize: '32px 32px'
+            }}
+          />
 
-          <p className="mt-6 text-lg sm:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
-            Know your next step with SabiGuide. From WAEC to NYSC, we guide every milestone of your academic journey.
-          </p>
-
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <motion.a
-              href="https://wa.me/2349000000000"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-secondary font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 group"
-            >
-              <MessageCircle size={22} className="text-primary" />
-              Start Your Journey
-              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-            </motion.a>
-
-            <motion.a
-              href="#features"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/15 text-white font-semibold text-lg rounded-2xl border border-white/10 transition-all duration-300 backdrop-blur-sm"
-            >
-              Learn More
-            </motion.a>
+          {/* Left Side: Students Image with Seamless Fade */}
+          <div 
+            className="absolute inset-y-0 left-0 w-full md:w-[55%] h-full z-0"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to right, black 60%, transparent 100%)',
+              maskImage: 'linear-gradient(to right, black 60%, transparent 100%)'
+            }}
+          >
+            <Image 
+              src="/images/cta-students-v2.png"
+              alt="Students using SabiGuide"
+              fill
+              className="object-cover object-center md:object-[center_20%]"
+              sizes="(max-width: 768px) 100vw, 55vw"
+              priority
+            />
           </div>
 
-          {/* Trust Note */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="mt-8 text-sm text-white/40"
-          >
-            Free to use • No app download • Works on WhatsApp & USSD
-          </motion.p>
+          {/* Right Side: Text & CTA */}
+          <div className="relative z-10 w-full md:w-[50%] md:ml-auto py-16 px-6 md:py-24 md:pr-16 order-1 md:order-2 text-left flex flex-col justify-center bg-gradient-to-t from-[#0C3D2B]/90 to-transparent md:bg-none mt-40 md:mt-0">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4 tracking-tight">
+              <span className="text-[#C4F08C]">Your</span> Future Shouldn't Depend on Guesswork.
+            </h2>
+            
+            <p className="text-lg text-white/90 mb-8 max-w-xl mx-auto md:mx-0">
+              Let <span className="font-bold">SabiGuide</span> guide you to your next academic win.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-6">
+              <a 
+                href="https://wa.me/2349000000000" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-[#004D40] font-bold text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+              >
+                <MessageCircle size={20} className="text-[#00B074]" />
+                Start on WhatsApp
+              </a>
+
+              <a 
+                href="#features" 
+                className="inline-flex items-center gap-2 text-white font-semibold text-base hover:text-[#C4F08C] transition-colors duration-300"
+              >
+                Explore Features <ArrowRight size={18} />
+              </a>
+            </div>
+          </div>
+          
         </motion.div>
       </div>
     </section>
