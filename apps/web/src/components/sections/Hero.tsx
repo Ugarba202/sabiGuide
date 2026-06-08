@@ -12,15 +12,7 @@ export default function Hero() {
           
           {/* Left Column: Typography & CTAs */}
           <div className="w-full lg:w-[55%]">
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111111] border border-white/10 text-white/80 text-xs font-semibold mb-8 uppercase tracking-widest"
-            >
-              <ShieldCheck size={14} className="text-[#00B074]" />
-              OPay Innovation Challenge
-            </motion.div>
+           
             
             <motion.h1 
               initial={{ opacity: 0, y: 10 }}
