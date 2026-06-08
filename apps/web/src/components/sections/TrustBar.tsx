@@ -1,49 +1,84 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const partners = [
-  { name: "WAEC", abbr: "WAEC" },
-  { name: "JAMB", abbr: "JAMB" },
-  { name: "NELFUND", abbr: "NELFUND" },
-  { name: "NYSC", abbr: "NYSC" },
-  { name: "OPay", abbr: "OPay" },
-  { name: "NUC", abbr: "NUC" },
-];
-
-function PartnerBadge({ name }: { name: string }) {
-  return (
-    <div className="flex items-center justify-center px-8 py-3 mx-6">
-      <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-text-primary/20 dark:text-white/15 whitespace-nowrap">
-        {name}
-      </span>
-    </div>
-  );
-}
+import Image from "next/image";
 
 export default function TrustBar() {
   return (
-    <section className="py-12 md:py-16 bg-bg-main overflow-hidden">
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="text-center text-sm font-medium text-text-muted mb-8 tracking-wide uppercase"
-      >
-        Guiding students through every academic milestone
-      </motion.p>
+    <section className="py-12 bg-white border-b border-gray-100 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col items-center">
+        
+        {/* Top Pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gray-50 border border-gray-100 rounded-full px-5 py-1.5 mb-8"
+        >
+          <p className="text-[13px] font-medium text-gray-500 tracking-wide">
+            Trusted by students and partners across Nigeria
+          </p>
+        </motion.div>
 
-      {/* Marquee */}
-      <div className="relative">
-        {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-bg-main to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-bg-main to-transparent z-10" />
+        {/* Logos Container */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-wrap justify-center items-center gap-8 md:gap-16 w-full"
+        >
+          {/* WAEC Logo */}
+          <div className="relative h-10 w-32 flex items-center justify-center">
+            <Image 
+              src="/logos/waec.png" 
+              alt="WAEC Logo" 
+              fill
+              className="object-contain"
+            />
+          </div>
 
-        <div className="flex animate-marquee">
-          {[...partners, ...partners, ...partners, ...partners].map((p, i) => (
-            <PartnerBadge key={`${p.name}-${i}`} name={p.abbr} />
-          ))}
-        </div>
+          {/* JAMB Logo */}
+          <div className="relative h-10 w-32 flex items-center justify-center">
+            <Image 
+              src="/logos/jamb.png" 
+              alt="JAMB Logo" 
+              fill
+              className="object-contain"
+            />
+          </div>
+
+          {/* NELFUND Logo */}
+          <div className="relative h-10 w-32 flex items-center justify-center">
+            <Image 
+              src="/logos/nelfund.png" 
+              alt="NELFUND Logo" 
+              fill
+              className="object-contain"
+            />
+          </div>
+
+          {/* NYSC Logo */}
+          <div className="relative h-10 w-32 flex items-center justify-center">
+            <Image 
+              src="/logos/nysc.png" 
+              alt="NYSC Logo" 
+              fill
+              className="object-contain"
+            />
+          </div>
+
+          {/* OPay Logo */}
+          <div className="relative h-10 w-32 flex items-center justify-center">
+            <Image 
+              src="/logos/opay.png" 
+              alt="OPay Logo" 
+              fill
+              className="object-contain"
+            />
+          </div>
+
+        </motion.div>
       </div>
     </section>
   );
