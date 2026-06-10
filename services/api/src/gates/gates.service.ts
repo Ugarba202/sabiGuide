@@ -14,7 +14,7 @@ export class GatesService {
       state = await this.prisma.gateState.create({
         data: {
           userId,
-          currentGate: 'WAEC',
+          currentGate: 'JAMB',
           completedGates: [],
         },
       });
@@ -28,7 +28,7 @@ export class GatesService {
       update: updateGateDto,
       create: {
         userId,
-        currentGate: updateGateDto.currentGate || 'WAEC',
+        currentGate: updateGateDto.currentGate || 'JAMB',
         completedGates: updateGateDto.completedGates || [],
       },
     });
