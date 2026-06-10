@@ -1,34 +1,28 @@
 import { Injectable } from '@nestjs/common';
+import { Conversation } from '@prisma/client';
 import { CreateConversationDto } from './dto/create-conversation.dto';
-
-export interface ConversationState {
-  userId: string;
-  lastMessage: string;
-  context: string;
-  updatedAt: Date;
-}
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ConversationsService {
-  private conversations: Map<string, ConversationState> = new Map();
+  constructor(private prisma: PrismaService) {}
 
-  saveMessage(userId: string, createConversationDto: CreateConversationDto): ConversationState {
-    const newState: ConversationState = {
-      userId,
-      lastMessage: createConversationDto.lastMessage,
-      context: createConversationDto.context,
-      updatedAt: new Date(),
-    };
-    this.conversations.set(userId, newState);
-    return newState;
+  async saveMessage(userId: string, createConversationDto: CreateConversationDto): Promise<Conversation> {
+    return this.prisma.conversation.upsert({
+      where: { userId },
+      update: {
+        lastMessage: createConversationDto.lastMessage,
+        context: createConversationDto.context,
+      },
+      create: {
+        userId,
+        lastMessage: createConversationDto.lastMessage,
+        context: createConversationDto.context,
+      },
+    });
   }
 
-  getHistory(userId: string): ConversationState {
-    return this.conversations.get(userId) || {
-      userId,
-      lastMessage: '',
-      context: '',
-      updatedAt: new Date(),
-    };
+  async getHistory(userId: string): Promise<Conversation | null> {
+    return this.prisma.conversation.findUnique({ where: { userId } });
   }
 }

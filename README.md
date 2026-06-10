@@ -19,6 +19,6 @@ No student should miss an educational opportunity because of lack of information
 
 - Flutter
 - NestJS
-- Firebase
+- Supabase & PostgreSQL
 - Gemini
 - WhatsApp Cloud API

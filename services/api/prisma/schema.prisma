@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  phone        String        @unique
+  fullName     String
+  language     String
+  createdAt    DateTime      @default(now())
+  
+  profile      Profile?
+  gateState    GateState?
+  conversation Conversation?
+}
+
+model Profile {
+  id                    String   @id @default(uuid())
+  userId                String   @unique
+  courseInterest        String
+  state                 String
+  institutionPreference String[]
+  createdAt             DateTime @default(now())
+
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model GateState {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  currentGate    String
+  completedGates String[]
+  updatedAt      DateTime @updatedAt
+
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Conversation {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  lastMessage String
+  context     String
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

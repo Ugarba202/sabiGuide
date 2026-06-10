@@ -1,40 +1,36 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { GateType } from '@sabiguide/shared-types';
+import { Injectable } from '@nestjs/common';
+import { GateState } from '@prisma/client';
 import { UpdateGateDto } from './dto/update-gate.dto';
-
-export interface GateState {
-  userId: string;
-  currentGate: GateType;
-  completedGates: GateType[];
-  updatedAt: Date;
-}
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class GatesService {
-  private gateStates: Map<string, GateState> = new Map();
+  constructor(private prisma: PrismaService) {}
 
-  getGateState(userId: string): GateState {
-    const state = this.gateStates.get(userId);
+  async getGateState(userId: string): Promise<GateState> {
+    let state = await this.prisma.gateState.findUnique({ where: { userId } });
     if (!state) {
-      // Default state for a new user
-      return {
-        userId,
-        currentGate: GateType.WAEC,
-        completedGates: [],
-        updatedAt: new Date(),
-      };
+      // Create default state
+      state = await this.prisma.gateState.create({
+        data: {
+          userId,
+          currentGate: 'WAEC',
+          completedGates: [],
+        },
+      });
     }
     return state;
   }
 
-  updateGateState(userId: string, updateGateDto: UpdateGateDto): GateState {
-    const currentState = this.getGateState(userId);
-    const updatedState: GateState = {
-      ...currentState,
-      ...updateGateDto,
-      updatedAt: new Date(),
-    };
-    this.gateStates.set(userId, updatedState);
-    return updatedState;
+  async updateGateState(userId: string, updateGateDto: UpdateGateDto): Promise<GateState> {
+    return this.prisma.gateState.upsert({
+      where: { userId },
+      update: updateGateDto,
+      create: {
+        userId,
+        currentGate: updateGateDto.currentGate || 'WAEC',
+        completedGates: updateGateDto.completedGates || [],
+      },
+    });
   }
 }
