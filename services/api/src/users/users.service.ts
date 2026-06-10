@@ -1,38 +1,39 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { User, GateType } from '@sabiguide/shared-types';
+import { User } from '@prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [];
+  constructor(private prisma: PrismaService) {}
 
-  create(createUserDto: CreateUserDto): User {
-    const newUser: User = {
-      id: Math.random().toString(36).substring(7),
-      fullName: createUserDto.fullName,
-      phoneNumber: createUserDto.phone,
-      state: '',
-      language: createUserDto.language,
-      currentGate: GateType.WAEC,
-      createdAt: new Date(),
-    };
-    this.users.push(newUser);
-    return newUser;
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    return this.prisma.user.create({
+      data: {
+        phone: createUserDto.phone,
+        fullName: createUserDto.fullName,
+        language: createUserDto.language,
+      },
+    });
   }
 
-  findOne(id: string): User {
-    const user = this.users.find(u => u.id === id);
+  async findOne(id: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
     return user;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto): User {
-    const user = this.findOne(id);
-    const updatedUser = { ...user, ...updateUserDto };
-    this.users = this.users.map(u => u.id === id ? updatedUser : u);
-    return updatedUser;
+  async findByPhone(phone: string): Promise<User | null> {
+    return this.prisma.user.findUnique({ where: { phone } });
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    return this.prisma.user.update({
+      where: { id },
+      data: updateUserDto,
+    });
   }
 }
